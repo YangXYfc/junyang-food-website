@@ -1,0 +1,11 @@
+import {readFile,writeFile} from 'node:fs/promises';
+import {homeView} from '../dist/views.js';
+import {nav} from '../dist/data.js';
+import {icon} from '../dist/icons.js';
+const file=new URL('../dist/index.html',import.meta.url);
+let html=await readFile(file,'utf8');
+const note='<noscript><p class="demo-note">导航与筛选功能需要 JavaScript；以下首页内容仍可阅读。</p></noscript>';
+html=html.replace(/(<main id="main"[^>]*>)[\s\S]*?(<\/main>)/,(_,open,close)=>open+note+homeView()+close);
+const links=nav.map(x=>`<a class="nav-link" data-nav="${x.id}" data-label="${x.label}" href="#section-${x.id}" ${x.id==='home'?'aria-current="location"':''}>${icon(x.icon)}<span class="nav-label">${x.label}</span></a>`).join('');
+html=html.replace(/(<nav id="navigation"[^>]*>)[\s\S]*?(<\/nav>)/,(_,open,close)=>open+'<div id="nav-marker" class="nav-marker" aria-hidden="true"></div>'+links+close);
+await writeFile(file,html);console.log('Static home fallback prepared');

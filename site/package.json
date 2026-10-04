@@ -1,0 +1,7 @@
+{
+  "name": "junyang-food-site",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {"dev": "node server.mjs", "prepare-static": "node scripts/prerender.mjs", "test": "node --test --test-isolation=none tests/logic.test.mjs"}
+}
