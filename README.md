@@ -2,7 +2,19 @@
 
 依据三份 Word 文档制作的静态前端 UI 原型。采用白色底色、森林绿配色与微软雅黑字体，提供左侧可折叠导航、滚动栏目高亮、进入动画、长首页及手机抽屉导航。
 
-在线站点：[菌养食材](https://junyang-food-explore.royal-chime-5173.chatgpt.site)。
+原版站点：[菌养食材 · 侧栏版](https://junyang-food-explore.royal-chime-5173.chatgpt.site)。
+
+新版站点：[菌养食材 · 横向导航版](https://junyang-food-horizontal.royal-chime-5173.chatgpt.site)，独立部署，初始为所有者私有访问。顶部横向导航及二级菜单，24 个独立 HTML 地址；白底、森林绿与微软雅黑。原版保持不变。
+
+## 横向导航新版本地运行
+
+```sh
+cd site-horizontal
+npm run build
+npm run dev
+```
+
+打开 http://127.0.0.1:4174。`npm test` 检查路由与页面。新版详情见 `site-horizontal/docs/verification.md`。
 
 ## 栏目与页面
 
@@ -37,7 +49,8 @@ npm run prepare-static
 
 | 路径 | 内容 |
 | --- | --- |
-| `site/` | 网站源码、可部署文件、静态服务器及逻辑测试 |
+| `site-horizontal/` | 独立横向导航新版、静态页面及验证记录 |
+| `site/` | 原版网站源码、可部署文件、静态服务器及逻辑测试 |
 | `site/dist/assets/` | 网站使用的摄影素材 |
 | `design-options/` | A/B/C 初步方案及选定的 A2 设计参考 |
 | `docs/superpowers/` | 设计规格、实施计划与审查记录 |

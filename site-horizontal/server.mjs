@@ -1,0 +1,10 @@
+import http from 'node:http';
+import {readFile,stat} from 'node:fs/promises';
+import {fileURLToPath} from 'node:url';
+import {resolve,relative,extname} from 'node:path';
+import {renderDocument} from './dist/components.js';
+import {readRoute,} from './dist/routes.js';
+const root=fileURLToPath(new URL('./dist/',import.meta.url));
+const mime={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.svg':'image/svg+xml','.png':'image/png'};
+const server=http.createServer(async(req,res)=>{try{const url=new URL(req.url,'http://localhost');let path;try{path=decodeURIComponent(url.pathname);}catch{res.writeHead(404,{'content-type':mime['.html']});return res.end(renderDocument(readRoute('/404.html')));}let file=resolve(root,'.'+path);if(relative(root,file).startsWith('..'))throw new Error('outside');try{if((await stat(file)).isDirectory())file=resolve(file,'index.html');const data=await readFile(file);res.writeHead(200,{'content-type':mime[extname(file)]||'application/octet-stream','cache-control':'no-cache'});res.end(data);}catch{res.writeHead(404,{'content-type':mime['.html']});res.end(renderDocument(readRoute('/404.html')));}}catch{res.writeHead(400);res.end('Invalid request');}});
+server.listen(Number(process.env.PORT)||4174,'127.0.0.1',()=>console.log('Local: http://127.0.0.1:4174'));

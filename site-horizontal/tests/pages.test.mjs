@@ -1,0 +1,11 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {readRoute,pagePaths} from '../dist/routes.js';
+import {renderDocument} from '../dist/components.js';
+test('all generated pages have complete readable content and one h1',()=>{for(const path of pagePaths){const html=renderDocument(readRoute(path));assert.equal((html.match(/<h1\b/g)||[]).length,1,path);assert.match(html,/<nav.*主导航/);assert.match(html,/<footer/);assert.doesNotMatch(html,/class="sidebar|href="#(?:foods|food\/|inputs|bases|base\/|articles|article\/|events|home)/);}});
+test('food list is meaningful without JavaScript and applies queries',()=>{let html=renderDocument(readRoute('/foods/'));assert.match(html,/共 4 项/);assert.match(html,/href="\/foods\/leafy-greens\//);html=renderDocument(readRoute('/foods/','?category=poultry'));assert.match(html,/共 1 项/);assert.doesNotMatch(html,/class="product-card"[^]*蔬菜产品示意/);});
+test('unknown detail ID becomes recoverable missing page',()=>{assert.match(renderDocument(readRoute('/foods/unknown/')),/页面暂时不存在/);});
+test('fertilizer and feed have separate native page links',()=>{const html=renderDocument(readRoute('/inputs/feed/'));assert.match(html,/href="\/inputs\/fertilizer\//);assert.match(html,/发酵饲料示意/);assert.doesNotMatch(html,/data-input-tab/);});
+test('base tab query renders correct static panel',()=>{assert.match(renderDocument(readRoute('/bases/plant/','?tab=process')),/主要生产阶段/);});
+test('every rendered local link and asset has a generated target',async()=>{const {access}=await import('node:fs/promises');const {fileURLToPath}=await import('node:url');const {join}=await import('node:path');const root=fileURLToPath(new URL('../dist/',import.meta.url));for(const path of pagePaths){const html=renderDocument(readRoute(path));for(const [,target] of html.matchAll(/(?:href|src)="(\/[^"?#]*)/g)){if(target.endsWith('/')||target.endsWith('.html'))assert.ok(pagePaths.includes(target),path+' -> '+target);else await access(join(root,target.slice(1)));}}});
+test('independent manifest does not retain original site identity',async()=>{const {readFile}=await import('node:fs/promises');const config=JSON.parse(await readFile(new URL('../.openai/hosting.json',import.meta.url)));assert.ok(config.project_id);assert.notEqual(config.project_id,'appgprj_6ac243afa5608191b543f1447518a838');});
