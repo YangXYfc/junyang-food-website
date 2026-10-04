@@ -1,6 +1,6 @@
 # 菌养食材横向导航新站 Implementation Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [x]`) syntax for tracking.
 
 **Goal:** 构建并部署独立的横向导航新版，保留原站，并同步新目录到已有 GitHub 仓库。
 
@@ -33,9 +33,9 @@
 
 **Interfaces:** `routeUrl(hash)` 将旧内容内链转换成真实路径；`readRoute(pathname, search)` 返回 `{page,id,section,query}`；`filterFoods(items, query)` 提供真实过滤；`pagePaths` 列出需要生成的基础及详情 HTML 地址。
 
-- [ ] 写分类查询、独立肥料/饲料地址、产品/基地/文章链接、畸形地址、未知页面和组合筛选测试；先观察失败。
-- [ ] 实现路由契约，沿用已验证的数据及图标，执行 `node --test --test-isolation=none tests/routes.test.mjs`，预期全部通过。
-- [ ] 注册一次新 Sites 并立即写入新 manifest；旧身份不复制；记录源目录隔离。
+- [x] 写分类查询、独立肥料/饲料地址、产品/基地/文章链接、畸形地址、未知页面和组合筛选测试；先观察失败。
+- [x] 实现路由契约，沿用已验证的数据及图标，执行 `node --test --test-isolation=none tests/routes.test.mjs`，预期全部通过。
+- [x] 注册一次新 Sites 并立即写入新 manifest；旧身份不复制；记录源目录隔离。
 
 ## Task 2: 顶部导航、首页与独立内页
 
@@ -43,21 +43,21 @@
 
 **Interfaces:** `renderDocument(route)` 生成完整且无脚本也能阅读的 HTML；`renderContent(route)` 返回页面正文；公共组件负责导航、横幅与页脚；生成脚本按 `pagePaths` 输出 HTML。原生页面内链接经 `routeUrl` 转换，资源地址从站点根目录解析。
 
-- [ ] 写页面契约测试：六主栏目、真实内链、默认筛选内容、未知地址、无旧 project_id、无左侧导航、无缺失资源；观察失败。
-- [ ] 完成 H1/H2 及协调下半页：首页七区、食材列表与详情、肥料/饲料列表及产品详情、基地列表和资料、科普列表和文章、安全事件、介绍及 404。
-- [ ] 实现菜单、搜索、筛选/重置、基地标签键盘与历史恢复、锚点跳转、减少动态效果；保留静态数据阅读降级。
-- [ ] 执行 `node scripts/build.mjs` 与 `node --test --test-isolation=none tests/*.test.mjs`，预期构建成功、全部通过。
+- [x] 写页面契约测试：六主栏目、真实内链、默认筛选内容、未知地址、无旧 project_id、无左侧导航、无缺失资源；观察失败。
+- [x] 完成 H1/H2 及协调下半页：首页七区、食材列表与详情、肥料/饲料列表及产品详情、基地列表和资料、科普列表和文章、安全事件、介绍及 404。
+- [x] 实现菜单、搜索、筛选/重置、基地标签键盘与历史恢复、锚点跳转、减少动态效果；保留静态数据阅读降级。
+- [x] 执行 `node scripts/build.mjs` 与 `node --test --test-isolation=none tests/*.test.mjs`，预期构建成功、全部通过。
 
 ## Task 3: 浏览器、视觉审查与交付
 
 **Files:** 站点代码、设计参考、审查记录；临时 QA 放 Codex visualization 目录。
 
-- [ ] 启动新站 `http://127.0.0.1:4174`；尝试 Browser/IAB，失效时说明并使用已有 Playwright；测试首页、六栏目、筛选、深链/刷新/返回、菜单/键盘、错误地址、无脚本、减少动态效果。
-- [ ] 核对 1470px、1024px、390px；用 view_image 比较协调概念与实际截图，记至少五点对照和有意偏差，修复可修的问题。
-- [ ] 依 requesting-code-review 发起独立整站审查；修复重要问题并复现相应失败到通过。
-- [ ] 新站源码通过 Sites helper 保存/推送/打包；保存并部署该提交的版本，等到 succeeded。
-- [ ] 同步新目录、方案与审查记录到 GitHub `YangXYfc/junyang-food-website`；核对远端提交。
-- [ ] 验证旧站仍为版本 2 与原地址；交付新旧两个链接并停止自有预览服务。
+- [x] 启动新站 `http://127.0.0.1:4174`；尝试 Browser/IAB，失效时说明并使用已有 Playwright；测试首页、六栏目、筛选、深链/刷新/返回、菜单/键盘、错误地址、无脚本、减少动态效果。
+- [x] 核对 1470px、1024px、390px；用 view_image 比较协调概念与实际截图，记至少五点对照和有意偏差，修复可修的问题。
+- [x] 依 requesting-code-review 发起独立整站审查；修复重要问题并复现相应失败到通过。
+- [x] 新站源码通过 Sites helper 保存/推送/打包；保存并部署该提交的版本，等到 succeeded。
+- [x] 同步新目录、方案与审查记录到 GitHub `YangXYfc/junyang-food-website`；核对远端提交。
+- [x] 验证旧站仍为版本 2 与原地址；交付新旧两个链接并停止自有预览服务。
 
 ## 执行授权与方法
 
