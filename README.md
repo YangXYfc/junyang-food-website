@@ -4,7 +4,7 @@
 
 原版站点：[菌养食材 · 侧栏版](https://junyang-food-explore.royal-chime-5173.chatgpt.site)。
 
-新版站点：[菌养食材 · 横向导航版](https://junyang-food-horizontal.royal-chime-5173.chatgpt.site)，独立部署，初始为所有者私有访问。顶部横向导航及二级菜单，24 个独立 HTML 地址；白底、森林绿与微软雅黑。原版保持不变。
+新版站点：[菌养食材 · 横向导航版](https://junyang-food-horizontal.royal-chime-5173.chatgpt.site)，独立部署，公开访问，无需登录。顶部横向导航及二级菜单，24 个独立 HTML 地址；白底、森林绿与微软雅黑。原版保持不变。
 
 ## 横向导航新版本地运行
 
